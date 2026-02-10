@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import {
   ReactFlow,
   Background,
@@ -81,8 +81,10 @@ export function FlowCanvas() {
       label: edge.label,
       type: 'smoothstep',
       animated: edge.type === 'action',
-      markerEnd: { type: MarkerType.ArrowClosed },
-      style: { stroke: 'hsl(var(--muted-foreground))' },
+      markerEnd: { type: MarkerType.ArrowClosed, color: 'oklch(0.6 0 0)' },
+      style: { stroke: 'oklch(0.6 0 0)' },
+      labelStyle: { fill: 'oklch(0.85 0 0)', fontSize: 12 },
+      labelBgStyle: { fill: 'oklch(0.17 0 0)', stroke: 'oklch(0.3 0 0)' },
     })),
     [blueprint.userFlow.edges]
   );
@@ -90,13 +92,24 @@ export function FlowCanvas() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  // Sync React Flow local state when store changes (e.g. after AI generation)
+  useEffect(() => {
+    setNodes(initialNodes);
+  }, [initialNodes, setNodes]);
+
+  useEffect(() => {
+    setEdges(initialEdges);
+  }, [initialEdges, setEdges]);
+
   const onConnect = useCallback(
     (connection: Connection) => {
       setEdges((eds) => addEdge({
         ...connection,
         type: 'smoothstep',
-        markerEnd: { type: MarkerType.ArrowClosed },
-        style: { stroke: 'hsl(var(--muted-foreground))' },
+        markerEnd: { type: MarkerType.ArrowClosed, color: 'oklch(0.6 0 0)' },
+        style: { stroke: 'oklch(0.6 0 0)' },
+        labelStyle: { fill: 'oklch(0.85 0 0)', fontSize: 12 },
+        labelBgStyle: { fill: 'oklch(0.17 0 0)', stroke: 'oklch(0.3 0 0)' },
       }, eds));
     },
     [setEdges]
@@ -184,7 +197,10 @@ export function FlowCanvas() {
         className="bg-background"
         defaultEdgeOptions={{
           type: 'smoothstep',
-          markerEnd: { type: MarkerType.ArrowClosed },
+          markerEnd: { type: MarkerType.ArrowClosed, color: 'oklch(0.6 0 0)' },
+          style: { stroke: 'oklch(0.6 0 0)' },
+          labelStyle: { fill: 'oklch(0.85 0 0)', fontSize: 12 },
+          labelBgStyle: { fill: 'oklch(0.17 0 0)', stroke: 'oklch(0.3 0 0)' },
         }}
       >
         <Background gap={20} size={1} color="hsl(var(--border))" />

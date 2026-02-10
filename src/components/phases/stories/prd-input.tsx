@@ -99,8 +99,8 @@ export function PrdInput() {
         </div>
       </CardHeader>
       
-      <CardContent className="flex-1 flex flex-col gap-4">
-        <div className="relative flex-1">
+      <CardContent className="flex-1 flex flex-col gap-4 min-h-0">
+        <div className="relative flex-1 min-h-0">
           <Textarea
             value={localPrd}
             onChange={(e) => setLocalPrd(e.target.value)}
@@ -114,7 +114,7 @@ This application allows users to...
 1. User registration and onboarding
 2. Dashboard with key metrics
 ..."
-            className="h-full min-h-[300px] resize-none bg-secondary/30 border-secondary font-mono text-sm leading-relaxed"
+            className="h-full min-h-0 resize-none bg-secondary/30 border-secondary font-mono text-sm leading-relaxed"
           />
         </div>
 

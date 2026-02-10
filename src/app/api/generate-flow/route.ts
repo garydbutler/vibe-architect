@@ -7,7 +7,7 @@ const flowSchema = z.object({
   nodes: z.array(z.object({
     type: z.enum(['start', 'screen', 'action', 'decision', 'end']),
     label: z.string(),
-    description: z.string().optional(),
+    description: z.string().nullable(),
     linkedStoryIds: z.array(z.string()),
     position: z.object({
       x: z.number(),
@@ -17,8 +17,8 @@ const flowSchema = z.object({
   edges: z.array(z.object({
     source: z.string().describe('Source node index (as string)'),
     target: z.string().describe('Target node index (as string)'),
-    label: z.string().optional(),
-    type: z.enum(['navigation', 'conditional', 'action']).optional(),
+    label: z.string().nullable(),
+    type: z.enum(['navigation', 'conditional', 'action']).nullable(),
   })),
 });
 

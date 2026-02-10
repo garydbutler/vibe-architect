@@ -10,9 +10,9 @@ const erdSchema = z.object({
       name: z.string().describe('camelCase attribute name'),
       type: z.enum(['string', 'number', 'boolean', 'date', 'reference', 'array']),
       required: z.boolean(),
-      isPrimaryKey: z.boolean().optional(),
-      isForeignKey: z.boolean().optional(),
-      referenceTo: z.string().optional().describe('Referenced entity name if foreign key'),
+      isPrimaryKey: z.boolean().nullable(),
+      isForeignKey: z.boolean().nullable(),
+      referenceTo: z.string().nullable().describe('Referenced entity name if foreign key'),
     })),
     position: z.object({
       x: z.number(),
@@ -23,7 +23,7 @@ const erdSchema = z.object({
     sourceEntity: z.string().describe('Source entity index (as string)'),
     targetEntity: z.string().describe('Target entity index (as string)'),
     type: z.enum(['one-to-one', 'one-to-many', 'many-to-many']),
-    label: z.string().optional(),
+    label: z.string().nullable(),
   })),
 });
 

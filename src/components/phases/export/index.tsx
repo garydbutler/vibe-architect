@@ -8,17 +8,18 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { 
-  Download, 
-  FileJson, 
-  Copy, 
+import {
+  Download,
+  FileJson,
+  Copy,
   Check,
   Package,
   GitBranch,
   Database,
   Layout,
   BookOpen,
-  Sparkles
+  Sparkles,
+  Monitor
 } from 'lucide-react';
 import { toast } from 'sonner';
 import type { ExportManifest } from '@/types/blueprint';
@@ -111,6 +112,24 @@ export function ExportPhase() {
       })),
     };
   };
+
+  const generateScreensJson = () => ({
+    screens: blueprint.screens.map(screen => ({
+      id: screen.id,
+      name: screen.name,
+      path: screen.path,
+      description: screen.description,
+      linkedStoryIds: screen.linkedStoryIds,
+      linkedFlowNodeId: screen.linkedFlowNodeId,
+      components: screen.components.map(comp => ({
+        type: comp.type,
+        label: comp.label,
+        semanticType: comp.type,
+        linkedEntityId: comp.linkedEntityId,
+        props: comp.props,
+      })),
+    })),
+  });
 
   const handleCopy = (section: string, content: object) => {
     navigator.clipboard.writeText(JSON.stringify(content, null, 2));
@@ -253,13 +272,15 @@ export function ExportPhase() {
             <TabsTrigger value="stories">Stories</TabsTrigger>
             <TabsTrigger value="routes">Routes</TabsTrigger>
             <TabsTrigger value="schema">DB Schema</TabsTrigger>
+            <TabsTrigger value="screens">Screens</TabsTrigger>
           </TabsList>
 
           <div className="flex-1 relative">
-            {(['manifest', 'stories', 'routes', 'schema'] as const).map((tab) => {
+            {(['manifest', 'stories', 'routes', 'schema', 'screens'] as const).map((tab) => {
               const content = tab === 'manifest' ? generateManifest()
                 : tab === 'stories' ? generateStoriesJson()
                 : tab === 'routes' ? generateRoutesJson()
+                : tab === 'screens' ? generateScreensJson()
                 : generateDbSchema();
 
               return (

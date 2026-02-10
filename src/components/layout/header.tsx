@@ -24,7 +24,7 @@ import {
 import { cn } from '@/lib/utils';
 
 export function Header() {
-  const { blueprint, updateBlueprintName, isAiProcessing, currentPhase } = useBlueprintStore();
+  const { blueprint, updateBlueprintName, createNewBlueprint, isAiProcessing, currentPhase } = useBlueprintStore();
 
   const phaseLabels: Record<string, string> = {
     stories: 'Story Hub',
@@ -102,7 +102,7 @@ export function Header() {
               Save As...
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => createNewBlueprint('Untitled Project')}>
               <Sparkles className="w-4 h-4 mr-2" />
               New Project
             </DropdownMenuItem>

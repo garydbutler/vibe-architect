@@ -73,6 +73,7 @@ interface BlueprintStore {
   deleteComponent: (screenId: string, componentId: string) => void;
   setScreens: (screens: Screen[]) => void;
   selectScreen: (id: string | null) => void;
+  generateScreensFromFlow: () => void;
 
   // AI state
   setAiProcessing: (isProcessing: boolean) => void;
@@ -433,6 +434,33 @@ export const useBlueprintStore = create<BlueprintStore>()(
       })),
 
       selectScreen: (id) => set({ selectedScreenId: id }),
+
+      generateScreensFromFlow: () => set((state) => {
+        const screenNodes = state.blueprint.userFlow.nodes.filter(n => n.type === 'screen');
+        const existingLinkedIds = new Set(
+          state.blueprint.screens
+            .map(s => s.linkedFlowNodeId)
+            .filter(Boolean)
+        );
+        const newScreens: Screen[] = screenNodes
+          .filter(node => !existingLinkedIds.has(node.id))
+          .map(node => ({
+            id: uuidv4(),
+            name: node.label,
+            path: '/' + node.label.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+            components: [],
+            linkedStoryIds: node.linkedStoryIds || [],
+            linkedFlowNodeId: node.id,
+          }));
+
+        if (newScreens.length === 0) return state;
+
+        const allScreens = [...state.blueprint.screens, ...newScreens];
+        return {
+          blueprint: { ...state.blueprint, screens: allScreens, updatedAt: new Date() },
+          selectedScreenId: state.selectedScreenId || allScreens[0]?.id || null,
+        };
+      }),
 
       setAiProcessing: (isProcessing) => set({ isAiProcessing: isProcessing }),
       setAiError: (error) => set({ aiError: error }),
