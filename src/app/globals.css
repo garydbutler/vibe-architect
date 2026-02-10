@@ -1,0 +1,160 @@
+@import "tailwindcss";
+
+@theme {
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.625rem;
+  --radius-xl: 1rem;
+  
+  --color-background: oklch(0.145 0 0);
+  --color-foreground: oklch(0.985 0 0);
+  --color-card: oklch(0.17 0 0);
+  --color-card-foreground: oklch(0.985 0 0);
+  --color-popover: oklch(0.145 0 0);
+  --color-popover-foreground: oklch(0.985 0 0);
+  --color-primary: oklch(0.7 0.15 250);
+  --color-primary-foreground: oklch(0.145 0 0);
+  --color-secondary: oklch(0.25 0 0);
+  --color-secondary-foreground: oklch(0.985 0 0);
+  --color-muted: oklch(0.22 0 0);
+  --color-muted-foreground: oklch(0.6 0 0);
+  --color-accent: oklch(0.7 0.15 170);
+  --color-accent-foreground: oklch(0.145 0 0);
+  --color-destructive: oklch(0.55 0.2 25);
+  --color-destructive-foreground: oklch(0.985 0 0);
+  --color-border: oklch(0.3 0 0);
+  --color-input: oklch(0.3 0 0);
+  --color-ring: oklch(0.7 0.15 250);
+  
+  --color-chart-1: oklch(0.7 0.15 170);
+  --color-chart-2: oklch(0.7 0.15 250);
+  --color-chart-3: oklch(0.7 0.15 300);
+  --color-chart-4: oklch(0.7 0.15 50);
+  --color-chart-5: oklch(0.7 0.15 130);
+  
+  /* Sidebar colors */
+  --color-sidebar: oklch(0.13 0 0);
+  --color-sidebar-foreground: oklch(0.985 0 0);
+  --color-sidebar-primary: oklch(0.7 0.15 250);
+  --color-sidebar-primary-foreground: oklch(0.145 0 0);
+  --color-sidebar-accent: oklch(0.22 0 0);
+  --color-sidebar-accent-foreground: oklch(0.985 0 0);
+  --color-sidebar-border: oklch(0.25 0 0);
+  --color-sidebar-ring: oklch(0.7 0.15 250);
+}
+
+:root {
+  --radius: 0.625rem;
+  
+  /* Custom colors for Vibe Architect */
+  --va-blue: oklch(0.7 0.15 250);
+  --va-cyan: oklch(0.7 0.15 200);
+  --va-purple: oklch(0.7 0.15 300);
+  --va-green: oklch(0.7 0.15 150);
+  --va-orange: oklch(0.7 0.15 50);
+  --va-pink: oklch(0.7 0.15 350);
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: oklch(0.17 0 0);
+}
+
+::-webkit-scrollbar-thumb {
+  background: oklch(0.35 0 0);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.45 0 0);
+}
+
+/* React Flow custom styles */
+.react-flow__background {
+  background-color: oklch(0.145 0 0) !important;
+}
+
+.react-flow__minimap {
+  background-color: oklch(0.17 0 0) !important;
+}
+
+.react-flow__controls {
+  background-color: oklch(0.17 0 0) !important;
+  border: 1px solid oklch(0.3 0 0) !important;
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+.react-flow__controls-button {
+  background-color: oklch(0.17 0 0) !important;
+  border-color: oklch(0.3 0 0) !important;
+  color: oklch(0.985 0 0) !important;
+}
+
+.react-flow__controls-button:hover {
+  background-color: oklch(0.25 0 0) !important;
+}
+
+/* tldraw dark theme customization */
+.tl-container {
+  --color-background: oklch(0.145 0 0) !important;
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 20px oklch(0.7 0.15 250 / 0.3);
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px oklch(0.7 0.15 200 / 0.3);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px oklch(0.7 0.15 300 / 0.3);
+}
+
+/* Animation utilities */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 10px oklch(0.7 0.15 250 / 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px oklch(0.7 0.15 250 / 0.5);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-flow 3s ease infinite;
+}
